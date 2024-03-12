@@ -21,4 +21,15 @@ public class Utility {
         return greetingService.getCongratsMessage(name);
     }
 
+    public String sendHelloMessage(String name) {
+        String hello = sayHello(name);
+        System.out.println(hello);
+        return hello;
+    }
+
+    public String sendCongratsMessage(String name) {
+        String hello = getCongratsMessage(name);
+        System.out.println(hello);
+        return hello;
+    }
 }

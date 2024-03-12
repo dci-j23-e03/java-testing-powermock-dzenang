@@ -14,36 +14,59 @@ import static org.junit.Assert.assertEquals;
 @PrepareForTest(Utility.class)
 public class UtilityTest {
 
+    private Utility utility = PowerMockito.spy(new Utility());
+
+//    @Test
+//    public void verifySayHelloStaticMethod() {
+//        String name = "Robert Bosch";
+//
+//        PowerMockito.mockStatic(Utility.class);
+//        PowerMockito.when(Utility.sayHello(name)).thenReturn("Hello! Robert Bosch");
+//
+//        String actualMessage = Utility.sayHello(name);
+//        assertEquals("Hello! Robert Bosch", actualMessage);
+//    }
+
+    // practically better test, to test some method which is calling static method
     @Test
-    public void verifySayHelloStaticMethod() {
+    public void verifySendHelloMessage() {
         String name = "Robert Bosch";
 
-        Assert.fail("Missing Mocking");
+        PowerMockito.mockStatic(Utility.class);
+        PowerMockito.when(Utility.sayHello(name)).thenReturn("Hello! Robert Bosch");
 
-        String actualMessage = Utility.sayHello(name);
+        String actualMessage = utility.sendHelloMessage(name);
         assertEquals("Hello! Robert Bosch", actualMessage);
     }
 
     @Test
-        public void verifyGetGreetingMessagePrivateMethod() throws Exception {
+    public void verifyGetGreetingMessagePrivateMethod() throws Exception {
         String name = "Robert Bosch";
 
-        Utility mock = null;
-        Assert.fail("Missing Mocking");
+        PowerMockito.doReturn("Good Morning! Robert Bosch").when(utility, "getMessage", name);
 
-        String actualMessage = mock.getGreetingMessage(name);
+        String actualMessage = utility.getGreetingMessage(name);
         assertEquals("Good Morning! Robert Bosch", actualMessage);
     }
 
+//    @Test
+//    public void verifyGetGreetingMessageFinalMethod() throws Exception {
+//        String name = "Robert Bosch";
+//
+//        Utility utility = PowerMockito.mock(Utility.class);
+//        PowerMockito.when(utility.getCongratsMessage(name)).thenReturn("Congratulations! Robert Bosch");
+//
+//        String actualMessage = utility.getCongratsMessage(name);
+//        assertEquals("Congratulations! Robert Bosch", actualMessage);
+//    }
+
     @Test
-        public void verifyGetGreetingMessageFinalMethod() throws Exception {
+    public void verifySendGreetingsMessage() throws Exception {
         String name = "Robert Bosch";
 
-        Utility utility = null;
-        Assert.fail("Missing Mocking");
+        PowerMockito.doReturn("Congratulations! Robert Bosch").when(utility, "getCongratsMessage", name);
 
-
-        String actualMessage = utility.getCongratsMessage(name);
+        String actualMessage = utility.sendCongratsMessage(name);
         assertEquals("Congratulations! Robert Bosch", actualMessage);
     }
 }
